@@ -8,20 +8,14 @@
             "Dtdtechorg\\Isbc\\": "src/"
         }
     },
-    "scripts": {
-        "pre-install-cmd": [
-            "Dtdtech\\Isbc\\Plugin::checkLicense"
-        ],
-        "pre-update-cmd": [
-            "Dtdtech\\Isbc\\Plugin::checkLicense"
-        ]
-    },
     "authors": [
         {
             "name": "Doniyorbek To'lqinboyev",
             "email": "isbcbot@gmail.com"
         }
     ],
-    "version": "0.1.5",
-    "require": {}
+    "version": "0.1.6",
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    }
 }
