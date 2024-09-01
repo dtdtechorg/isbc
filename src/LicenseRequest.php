@@ -1,38 +1,45 @@
 <?php
 namespace Dtdtech\Isbc;
 
-use Composer\Script\Event;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-
-class Plugin
+class LicenseRequest
 {
-    public static function checkLicense(Event $event)
+    public static function checkLicense()
     {
         $apiUrl = 'https://files.isbcbot.ru/plugin/api/auth.php'; // API endpoint URL
         $bearerToken = 'qwertyuiop'; // Bearer token (agar kerak bo'lsa)
 
-        $client = new Client();
+        // cURL sessiyasini yaratish
+        $ch = curl_init($apiUrl);
 
-        try {
-            $response = $client->post($apiUrl, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $bearerToken, // Bearer token
-                    'Content-Type'  => 'application/x-www-form-urlencoded', // yoki 'application/json' agar JSON yuborsangiz
-                ],
-                // Agar boshqa ma'lumot yuborilmaydi, 'form_params' yoki 'json' qo'shmasangiz ham bo'ladi
-            ]);
+        // cURL sozlamalarini o'rnatish
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $bearerToken, // Bearer token
+            'Content-Type: application/x-www-form-urlencoded', // yoki 'application/json' agar JSON yuborsangiz
+        ]);
 
-            $data = json_decode($response->getBody(), true);
+        // So'rovni yuborish
+        $response = curl_exec($ch);
 
-            if (isset($data['status']) && $data['status'] === 'valid') {
-                echo "License key is valid. Continuing...\n";
-            } else {
-                echo "Invalid license key. Exiting...\n";
-                exit(1); // Exit with an error
-            }
-        } catch (RequestException $e) {
-            echo "Failed to verify license: " . $e->getMessage() . "\n";
+        // So'rov xatoliklarini tekshirish
+        if (curl_errno($ch)) {
+            echo "Failed to verify license: " . curl_error($ch) . "\n";
+            curl_close($ch);
+            exit(1); // Exit with an error
+        }
+
+        // cURL sessiyasini yopish
+        curl_close($ch);
+
+        // Javobni JSON formatida dekodlash
+        $data = json_decode($response, true);
+
+        // Javobni tekshirish
+        if (isset($data['status']) && $data['status'] === 'valid') {
+            echo "License key is valid. Continuing...\n";
+        } else {
+            echo "Invalid license key. Exiting...\n";
             exit(1); // Exit with an error
         }
     }
