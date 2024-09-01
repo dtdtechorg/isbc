@@ -10,9 +10,10 @@
     },
     "authors": [
         {
-            "name": "Doniyorbek To'lqinboyev",
-            "email": "isbcbot@gmail.com"
+            "name": "JANOB DTD",
+            "email": "janobdtd@gmail.com",
+            "telegram": "https://t.me/janobdtd"
         }
     ],
-    "version": "0.1.7"
+    "version": "0.1.8"
 }

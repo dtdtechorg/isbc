@@ -3,44 +3,52 @@ namespace Dtdtech\Isbc;
 
 class LicenseRequest
 {
-    public static function checkLicense()
+    private $apiUrl;
+    private $bearerToken;
+
+    public function __construct($apiUrl, $bearerToken)
     {
-        $apiUrl = 'https://files.isbcbot.ru/plugin/api/auth.php'; // API endpoint URL
-        $bearerToken = 'qwertyuiop'; // Bearer token (agar kerak bo'lsa)
+        $this->apiUrl = $apiUrl;
+        $this->bearerToken = $bearerToken;
+    }
 
-        // cURL sessiyasini yaratish
-        $ch = curl_init($apiUrl);
+    public function checkLicense()
+    {
+        $ch = curl_init($this->apiUrl);
 
-        // cURL sozlamalarini o'rnatish
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer ' . $bearerToken, // Bearer token
-            'Content-Type: application/x-www-form-urlencoded', // yoki 'application/json' agar JSON yuborsangiz
+            'Authorization: Bearer ' . $this->bearerToken,
+            'Content-Type: application/x-www-form-urlencoded',
         ]);
 
-        // So'rovni yuborish
         $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        // So'rov xatoliklarini tekshirish
         if (curl_errno($ch)) {
-            echo "Failed to verify license: " . curl_error($ch) . "\n";
-            curl_close($ch);
-            exit(1); // Exit with an error
+            $this->handleError(curl_error($ch));
         }
 
-        // cURL sessiyasini yopish
         curl_close($ch);
 
-        // Javobni JSON formatida dekodlash
         $data = json_decode($response, true);
 
-        // Javobni tekshirish
+        if ($httpCode !== 200) {
+            $this->handleError("HTTP error code: $httpCode");
+        }
+
         if (isset($data['status']) && $data['status'] === 'valid') {
             echo "License key is valid. Continuing...\n";
         } else {
-            echo "Invalid license key. Exiting...\n";
-            exit(1); // Exit with an error
+            $this->handleError("Invalid license key.");
         }
+    }
+
+    private function handleError($message)
+    {
+        // You can replace this with a more sophisticated logging system if needed
+        echo "Failed to verify license: " . $message . "\n";
+        exit(1); // Exit with an error
     }
 }
