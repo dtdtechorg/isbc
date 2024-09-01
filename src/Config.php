@@ -1,29 +1,24 @@
 <?php
+namespace YourVendor\YourPlugin;
 
-namespace Dtdtech\Isbc;
+use Composer\Script\Event;
+use Composer\Installer\PackageEvent;
+use Composer\Script\ScriptEvents;
 
-class Client
+class Plugin
 {
-    private $licenseId;
-
-    public function __construct()
+    public static function checkLicense(Event $event)
     {
-        $this->licenseId = $this->getLicenseId();
-        if (!$this->validateLicense($this->licenseId)) {
-            throw new \Exception('Invalid license ID.');
+        $correctLicenseKey = '12345678';
+        
+        echo "Please enter your license key: ";
+        $userInput = trim(fgets(STDIN));
+
+        if ($userInput === $correctLicenseKey) {
+            echo "License key is valid. Continuing...\n";
+        } else {
+            echo "Invalid license key. Exiting...\n";
+            exit(1); // Exit with an error
         }
-    }
-
-    private function getLicenseId()
-    {
-        // Litsenziya ID'sini o'qish
-        return trim(file_get_contents('config/license.key'));
-    }
-
-    private function validateLicense($licenseId)
-    {
-        // Litsenziya ID'sini tekshirish
-        // Bu yerda litsenziya tekshiruvini amalga oshirishingiz mumkin
-        return !empty($licenseId);
     }
 }

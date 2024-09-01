@@ -9,9 +9,8 @@
         }
     },
     "scripts": {
-        "post-install-cmd": [
-            "php Installer.php",
-            "Dtdtech\\Isbc\\Installer::configure"
+        "pre-install-cmd": [
+            "Dtdtechorg\\Isbc\\Plugin::checkLicense"
         ]
     },
     "authors": [
