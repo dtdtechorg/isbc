@@ -1,5 +1,5 @@
 {
-    "name": "dtdtech/isbc",
+    "name": "dtdtechorg/isbc",
     "description": "ISBC API Client Library for interacting with the International SMM Bots Center.",
     "type": "library",
     "license": "MIT",
@@ -13,12 +13,17 @@
             "Dtdtech\\Isbc\\Installer::configure"
         ]
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/dtdtechorg/isbc.git"
+        }
+    ],
     "authors": [
         {
             "name": "Doniyorbek To'lqinboyev",
             "email": "isbcbot@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {}
+    "minimum-stability": "dev"
 }
