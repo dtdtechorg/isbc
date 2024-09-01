@@ -10,7 +10,10 @@
     },
     "scripts": {
         "pre-install-cmd": [
-            "Dtdtechorg\\Isbc\\Plugin::checkLicense"
+            "Dtdtech\\Isbc\\Plugin::checkLicense"
+        ],
+        "pre-update-cmd": [
+            "Dtdtech\\Isbc\\Plugin::checkLicense"
         ]
     },
     "authors": [

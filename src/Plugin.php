@@ -1,15 +1,14 @@
 <?php
-namespace YourVendor\YourPlugin;
+namespace Dtdtech\Isbc;
 
 use Composer\Script\Event;
-use Composer\Installer\PackageEvent;
 use Composer\Script\ScriptEvents;
 
 class Plugin
 {
     public static function checkLicense(Event $event)
     {
-        $correctLicenseKey = '12345678';
+        $correctLicenseKey = '123456'; // O'zingizning litsenziya kalitini shu yerga yozing
         
         echo "Please enter your license key: ";
         $userInput = trim(fgets(STDIN));
