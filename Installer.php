@@ -1,33 +1,21 @@
 <?php
+// check_license.php
+if (PHP_SAPI !== 'cli') {
+    die("This script must be run from the command line.");
+}
 
-namespace Dtdtech\Isbc;
+// Correct license key for validation
+$correctLicenseKey = '123456789';
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+// Ask user for the license key
+echo "Please enter your license key: ";
+$userInput = trim(fgets(STDIN));
 
-class Installer
-{
-    public static function configure(InputInterface $input, OutputInterface $output)
-    {
-        // Litsenziya ID'sini so'rash
-        $output->writeln('Please enter your license ID:');
-        $licenseId = trim(fgets(STDIN));
-
-        // Litsenziya ID'sini tekshirish
-        if (!self::validateLicense($licenseId)) {
-            $output->writeln('Invalid license ID. Installation aborted.');
-            exit(1);
-        }
-
-        // Litsenziya ID'sini saqlash
-        file_put_contents('config/license.key', $licenseId);
-        $output->writeln('License ID saved successfully.');
-    }
-
-    private static function validateLicense($licenseId)
-    {
-        // Litsenziya ID'sini tekshirish
-        // Bu yerda litsenziya tekshiruvini amalga oshirishingiz mumkin
-        return !empty($licenseId);
-    }
+// Validate the license key
+if ($userInput === $correctLicenseKey) {
+    echo "License key is valid. Continuing installation...\n";
+    exit(0); // Continue with the script
+} else {
+    echo "Invalid license key. Installation aborted.\n";
+    exit(1); // Exit with error code
 }

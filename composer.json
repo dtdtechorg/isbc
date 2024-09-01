@@ -8,6 +8,12 @@
             "Dtdtechorg\\Isbc\\": "src/"
         }
     },
+    "scripts": {
+        "post-install-cmd": [
+            "php Installer.php",
+            "Dtdtech\\Isbc\\Installer::configure"
+        ]
+    },
     "authors": [
         {
             "name": "Doniyorbek To'lqinboyev",
