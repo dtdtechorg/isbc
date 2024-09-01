@@ -5,25 +5,14 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Dtdtech\\Isbc\\": "src/"
+            "Dtdtechorg\\Isbc\\": "src/"
         }
     },
-    "scripts": {
-        "post-install-cmd": [
-            "Dtdtech\\Isbc\\Installer::configure"
-        ]
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/dtdtechorg/isbc.git"
-        }
-    ],
     "authors": [
         {
             "name": "Doniyorbek To'lqinboyev",
             "email": "isbcbot@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "require": {}
 }
