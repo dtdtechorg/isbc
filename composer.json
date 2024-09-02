@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Dtdtechorg\\Isbc\\": "src/"
+            "Dtdtech\\Isbc\\": "src/"
         }
     },
     "authors": [
@@ -14,5 +14,5 @@
             "email": "janobdtd@gmail.com"
         }
     ],
-    "version": "0.2.0"
+    "version": "0.2.1"
 }
